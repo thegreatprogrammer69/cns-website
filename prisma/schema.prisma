@@ -1,13 +1,523 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../lib/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SubscriptionType {
+  TRIAL
+  SINGLE
+  PACKAGE
+}
+
+enum OrderStatus {
+  DRAFT
+  PENDING_PAYMENT
+  PAID
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  CREATED
+  PENDING
+  SUCCEEDED
+  FAILED
+  CANCELLED
+}
+
+enum DocumentType {
+  LICENSE
+  CONTRACT
+  POLICY
+  CONSENT
+  OTHER
+}
+
+enum WeekDay {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  lastName      String?
+  firstName     String?
+  middleName    String?
+
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  phone         String?
+  birthDate     DateTime?
+  address       String?
+
+  passwordHash  String?
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+
+  children      Child[]
+  guardians     Guardian[]
+
+  cart          Cart?
+  orders        Order[]
+  leads         Lead[]
+  reviews       Review[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Child {
+  id           String   @id @default(cuid())
+  userId       String
+
+  fullName     String
+  birthDate    DateTime
+
+  comment      String?
+  healthNotes  String?
+  photoAllowed Boolean  @default(false)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  cartItems    CartItem[]
+  orderItems   OrderItem[]
+}
+
+model Guardian {
+  id        String   @id @default(cuid())
+  userId    String
+
+  fullName  String
+  birthDate DateTime
+  phone     String?
+  comment   String?
+  canPickup Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Direction {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  shortText   String
+  description String?
+  icon        String?
+  imageUrl    String?
+
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  plans        SubscriptionPlan[]
+  schedule     ScheduleSlot[]
+  employees    EmployeeDirection[]
+  posts        BlogPost[]
+  events       Event[]
+}
+
+model SubscriptionPlan {
+  id           String           @id @default(cuid())
+  directionId  String?
+  title        String
+  slug         String           @unique
+  description  String?
+  type         SubscriptionType @default(PACKAGE)
+
+  lessonsCount Int
+  price        Int
+  oldPrice     Int?
+  durationDays Int?
+
+  isPopular    Boolean @default(false)
+  isActive     Boolean @default(true)
+  sortOrder    Int     @default(0)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  direction    Direction? @relation(fields: [directionId], references: [id], onDelete: SetNull)
+  cartItems    CartItem[]
+  orderItems   OrderItem[]
+}
+
+model Cart {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  planId    String
+  childId   String
+  quantity  Int      @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cart      Cart             @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  plan      SubscriptionPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  child     Child            @relation(fields: [childId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, planId, childId])
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  userId      String
+  status      OrderStatus @default(PENDING_PAYMENT)
+
+  totalAmount Int
+  discount    Int         @default(0)
+  finalAmount Int
+
+  customerName  String?
+  customerEmail String?
+  customerPhone String?
+  comment       String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items       OrderItem[]
+  payment     Payment?
+  promoCodeId String?
+  promoCode   PromoCode?  @relation(fields: [promoCodeId], references: [id], onDelete: SetNull)
+}
+
+model OrderItem {
+  id             String   @id @default(cuid())
+  orderId        String
+  planId         String
+  childId        String
+
+  title          String
+  price          Int
+  quantity       Int      @default(1)
+
+  childName      String
+  childBirthDate DateTime
+
+  order          Order            @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  plan           SubscriptionPlan @relation(fields: [planId], references: [id], onDelete: Restrict)
+  child          Child            @relation(fields: [childId], references: [id], onDelete: Restrict)
+}
+
+model Payment {
+  id                String        @id @default(cuid())
+  orderId           String        @unique
+  provider          String?
+  providerPaymentId String?
+  status            PaymentStatus @default(CREATED)
+
+  amount            Int
+  currency          String        @default("RUB")
+
+  paymentUrl        String?
+  rawPayload        Json?
+
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  order             Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model Promo {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?
+  imageUrl    String?
+
+  startsAt    DateTime?
+  endsAt      DateTime?
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PromoCode {
+  id              String   @id @default(cuid())
+  code            String   @unique
+  description     String?
+
+  discountPercent Int?
+  discountAmount  Int?
+
+  usageLimit      Int?
+  usedCount       Int      @default(0)
+
+  startsAt        DateTime?
+  endsAt          DateTime?
+  isActive        Boolean  @default(true)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  orders          Order[]
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  directionId String?
+
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String
+  coverUrl    String?
+
+  isPublished Boolean  @default(false)
+  publishedAt DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  direction   Direction? @relation(fields: [directionId], references: [id], onDelete: SetNull)
+}
+
+model Employee {
+  id          String   @id @default(cuid())
+  name        String
+  position    String
+  bio         String?
+  photoUrl    String?
+  experience  String?
+  education   String?
+
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  directions  EmployeeDirection[]
+}
+
+model EmployeeDirection {
+  employeeId  String
+  directionId String
+
+  employee    Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  direction   Direction @relation(fields: [directionId], references: [id], onDelete: Cascade)
+
+  @@id([employeeId, directionId])
+}
+
+model Document {
+  id          String       @id @default(cuid())
+  title       String
+  type        DocumentType @default(OTHER)
+  fileUrl     String
+  description String?
+
+  isPublic    Boolean      @default(true)
+  sortOrder   Int          @default(0)
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model ScheduleSlot {
+  id          String   @id @default(cuid())
+  directionId String
+
+  weekDay     WeekDay
+  startsAt    String
+  endsAt      String
+
+  ageGroup    String?
+  teacherName String?
+  room        String?
+  note        String?
+
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  direction   Direction @relation(fields: [directionId], references: [id], onDelete: Cascade)
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  userId    String?
+
+  name      String
+  phone     String
+  email     String?
+  message   String?
+  source    String?
+
+  createdAt DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String?
+
+  author    String
+  text      String
+  rating    Int      @default(5)
+  imageUrl  String?
+
+  isVisible Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model FaqItem {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  directionId String?
+
+  title       String
+  description String?
+  imageUrl    String?
+
+  startsAt    DateTime?
+  durationMin Int      @default(90)
+  orgFee      Int      @default(2000)
+
+  isIncludedInSubscription Boolean @default(false)
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  direction   Direction? @relation(fields: [directionId], references: [id], onDelete: SetNull)
+}
+
+model MediaAsset {
+  id        String   @id @default(cuid())
+  title     String?
+  url       String
+  type      String
+  alt       String?
+
+  createdAt DateTime @default(now())
+}
+
+model SiteSettings {
+  id          String @id @default(cuid())
+
+  companyName String
+  inn         String?
+  address     String?
+  phone       String?
+  email       String?
+
+  yandexMapUrl String?
+  twoGisMapUrl String?
+
+  vkUrl        String?
+  telegramUrl  String?
+  instagramUrl String?
+  whatsappUrl  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GalleryItem {
+  id          String   @id @default(cuid())
+  title       String?
+  description String?
+  imageUrl    String
+  sortOrder   Int      @default(0)
+  isVisible   Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String?
+  videoUrl    String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
