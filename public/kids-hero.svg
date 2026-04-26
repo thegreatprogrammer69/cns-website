@@ -1,0 +1,16 @@
+<svg width="560" height="380" viewBox="0 0 560 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="560" height="380" rx="40" fill="#FFF9ED"/>
+  <circle cx="95" cy="80" r="36" fill="#FFE58F"/>
+  <circle cx="470" cy="75" r="30" fill="#BFE6FF"/>
+  <rect x="55" y="145" width="450" height="175" rx="28" fill="#FFFFFF" stroke="#E8E8E8"/>
+  <rect x="85" y="180" width="120" height="95" rx="20" fill="#BAE6FD"/>
+  <rect x="220" y="180" width="120" height="95" rx="20" fill="#FDE68A"/>
+  <rect x="355" y="180" width="120" height="95" rx="20" fill="#A7F3D0"/>
+  <circle cx="144" cy="227" r="16" fill="#0F172A" fill-opacity="0.12"/>
+  <circle cx="280" cy="227" r="16" fill="#0F172A" fill-opacity="0.12"/>
+  <circle cx="414" cy="227" r="16" fill="#0F172A" fill-opacity="0.12"/>
+  <path d="M120 121C120 104.431 133.431 91 150 91H410C426.569 91 440 104.431 440 121V127H120V121Z" fill="#FF8E80"/>
+  <path d="M78 314C105 280 138 303 160 314" stroke="#FF8E80" stroke-width="9" stroke-linecap="round"/>
+  <path d="M387 314C414 280 447 303 469 314" stroke="#60A5FA" stroke-width="9" stroke-linecap="round"/>
+  <text x="280" y="338" text-anchor="middle" fill="#334155" font-family="Arial, sans-serif" font-size="18" font-weight="700">Kids Center</text>
+</svg>

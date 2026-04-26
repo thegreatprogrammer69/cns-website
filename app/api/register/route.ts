@@ -12,9 +12,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: result.error.flatten() }, { status: 400 });
   }
 
-  const { email, password } = result.data;
+  if (!prisma.user?.findUnique || !prisma.user?.create) {
+    return NextResponse.json(
+      { error: "Регистрация через API будет доступна после подключения Prisma adapter." },
+      { status: 503 },
+    );
+  }
 
+  const { email, password } = result.data;
   const existing = await prisma.user.findUnique({ where: { email } });
+
   if (existing) {
     return NextResponse.json({ error: "Email уже зарегистрирован" }, { status: 409 });
   }

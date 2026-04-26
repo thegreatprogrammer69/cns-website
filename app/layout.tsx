@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import "./globals.css";
-
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin", "cyrillic"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -18,8 +14,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ru" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full bg-[#fffdf7] text-slate-900">
+    <html lang="ru" className="h-full antialiased">
+      <body className="min-h-full bg-[#fffdf7] text-slate-900" style={{ fontFamily: "Inter, Nunito, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" }}>
         <Header />
         <main>{children}</main>
         <Footer />
