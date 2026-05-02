@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Контакты",
-  description: "Контакты детского развивающего центра: адрес, телефон, карта и форма заявки.",
+  description:
+    "Контакты детского развивающего центра: адрес, телефон, карта и форма заявки.",
 };
 
 export default function ContactsPage() {
@@ -11,7 +12,9 @@ export default function ContactsPage() {
       <h1 className="text-3xl font-bold">Контакты</h1>
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         <section className="rounded-2xl border border-slate-200 bg-white p-5">
-          <p><strong>Kids Center</strong></p>
+          <p>
+            <strong>Центр Семейного Наставничества</strong>
+          </p>
           <p>ИНН: 7700000000</p>
           <p>г. Москва, ул. Тёплая, 12</p>
           <p>+7 (999) 123-45-67</p>

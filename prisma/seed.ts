@@ -43,12 +43,55 @@ async function main() {
   }
 
   const plans = [
-    { slug: "trial", title: "Пробное занятие", lessonsCount: 1, price: 500, type: SubscriptionType.TRIAL, sortOrder: 1 },
-    { slug: "single", title: "Одно занятие", lessonsCount: 1, price: 1500, type: SubscriptionType.SINGLE, sortOrder: 2 },
-    { slug: "pack-8", title: "8 занятий", lessonsCount: 8, price: 9900, type: SubscriptionType.PACKAGE, isPopular: true, sortOrder: 3 },
-    { slug: "pack-24", title: "24 занятия", lessonsCount: 24, price: 27900, type: SubscriptionType.PACKAGE, sortOrder: 4 },
-    { slug: "pack-48", title: "48 занятий", lessonsCount: 48, price: 52900, type: SubscriptionType.PACKAGE, sortOrder: 5 },
-    { slug: "pack-96", title: "96 занятий", lessonsCount: 96, price: 99900, type: SubscriptionType.PACKAGE, sortOrder: 6 },
+    {
+      slug: "trial",
+      title: "Пробное занятие",
+      lessonsCount: 1,
+      price: 500,
+      type: SubscriptionType.TRIAL,
+      sortOrder: 1,
+    },
+    {
+      slug: "single",
+      title: "Одно занятие",
+      lessonsCount: 1,
+      price: 1500,
+      type: SubscriptionType.SINGLE,
+      sortOrder: 2,
+    },
+    {
+      slug: "pack-8",
+      title: "8 занятий",
+      lessonsCount: 8,
+      price: 9900,
+      type: SubscriptionType.PACKAGE,
+      isPopular: true,
+      sortOrder: 3,
+    },
+    {
+      slug: "pack-24",
+      title: "24 занятия",
+      lessonsCount: 24,
+      price: 27900,
+      type: SubscriptionType.PACKAGE,
+      sortOrder: 4,
+    },
+    {
+      slug: "pack-48",
+      title: "48 занятий",
+      lessonsCount: 48,
+      price: 52900,
+      type: SubscriptionType.PACKAGE,
+      sortOrder: 5,
+    },
+    {
+      slug: "pack-96",
+      title: "96 занятий",
+      lessonsCount: 96,
+      price: 99900,
+      type: SubscriptionType.PACKAGE,
+      sortOrder: 6,
+    },
   ];
 
   for (const plan of plans) {
@@ -67,7 +110,8 @@ async function main() {
     },
     {
       question: "Что родитель видит по результату?",
-      answer: "Каждый месяц — выступление, проект, портфолио или видео с прогрессом.",
+      answer:
+        "Каждый месяц — выступление, проект, портфолио или видео с прогрессом.",
       sortOrder: 2,
     },
     {
@@ -88,7 +132,7 @@ async function main() {
   await prisma.siteSettings.upsert({
     where: { id: "main-site-settings" },
     update: {
-      companyName: "Детский центр Kids Center",
+      companyName: "Центр Семейного Наставничества",
       inn: "7700000000",
       address: "г. Москва, ул. Тёплая, 12",
       phone: "+7 (999) 123-45-67",
@@ -102,7 +146,7 @@ async function main() {
     },
     create: {
       id: "main-site-settings",
-      companyName: "Детский центр Kids Center",
+      companyName: "Центр Семейного Наставничества",
       inn: "7700000000",
       address: "г. Москва, ул. Тёплая, 12",
       phone: "+7 (999) 123-45-67",
