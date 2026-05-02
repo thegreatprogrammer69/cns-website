@@ -1,8 +1,43 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import "./globals.css";
+
+const inter = localFont({
+  src: [
+    {
+      path: "../public/fonts/inter/Inter-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/inter/Inter-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+  ],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const manrope = localFont({
+  src: [
+    {
+      path: "../public/fonts/manrope/Manrope-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/manrope/Manrope-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-manrope",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -17,14 +52,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ru" className="h-full antialiased">
-      <body
-        className="min-h-full bg-[#fffdf7] text-slate-900"
-        style={{
-          fontFamily:
-            "Inter, Nunito, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
-        }}
-      >
+    <html
+      lang="ru"
+      className={`${inter.variable} ${manrope.variable} h-full antialiased`}
+    >
+      <body className="min-h-full bg-[#fffdf7] text-slate-900">
         <Header />
         <main>{children}</main>
         <Footer />
