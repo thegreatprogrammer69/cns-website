@@ -25,7 +25,7 @@ const inter = localFont({
 const manrope = localFont({
   src: [
     {
-      path: "../public/fonts/manrope/Manrope-SemiBold.woff2",
+      path: "../public/fonts/manrope/Manrope-Semibold.woff2",
       weight: "600",
       style: "normal",
     },
@@ -53,7 +53,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru" className="h-full antialiased">
-      <body className={`${inter.variable} ${manrope.variable} min-h-full bg-[#fffdf7] text-slate-900`}>
+      <body
+        className={`${inter.variable} ${manrope.variable} min-h-full bg-[#fffdf7] text-slate-900`}
+      >
         <Header />
         <main>{children}</main>
         <Footer />
