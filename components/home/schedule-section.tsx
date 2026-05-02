@@ -9,7 +9,7 @@ export function ScheduleSection() {
         title="График занятий"
         subtitle="Удобное расписание, которое легко совмещать с учебой и работой."
       >
-        <div className="overflow-x-auto">
+        <div className="hidden overflow-x-auto md:block">
           <table className="min-w-full text-left text-sm">
             <thead>
               <tr className="border-b border-slate-200 text-slate-500">
@@ -34,6 +34,15 @@ export function ScheduleSection() {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="space-y-3 md:hidden">
+          {scheduleSlots.map((slot) => (
+            <article key={slot.join("-")} className="rounded-2xl border border-slate-200 bg-white p-4 text-sm shadow-sm">
+              <p className="font-semibold text-slate-800">{slot[0]} · {slot[1]}–{slot[2]}</p>
+              <p className="mt-1 text-slate-700">{slot[3]} · {slot[4]}</p>
+              <p className="mt-1 text-slate-600">{slot[5]}</p>
+            </article>
+          ))}
         </div>
       </Section>
     </AnimatedSection>
