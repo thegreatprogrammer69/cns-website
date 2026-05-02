@@ -71,10 +71,10 @@ export function Header() {
 
           <div className="hidden md:block">
             <Link
-              href="/login"
-              className="rounded-full bg-sky-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-600"
+              href="/prices"
+              className="rounded-xl bg-sky-500 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-600"
             >
-              Войти
+              Записаться
             </Link>
           </div>
 
@@ -114,11 +114,11 @@ export function Header() {
               ))}
 
               <Link
-                href="/login"
+                href="/prices"
                 onClick={() => setIsOpen(false)}
                 className="mt-1 rounded-xl bg-sky-500 px-3 py-2 text-center font-medium text-white transition hover:bg-sky-600"
               >
-                Войти
+                Записаться
               </Link>
             </nav>
           </div>
