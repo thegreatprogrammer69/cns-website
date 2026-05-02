@@ -1,8 +1,27 @@
 import type { Metadata } from "next";
+import { Inter, Manrope, Nunito } from "next/font/google";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-inter",
+  weight: ["400", "500"],
+});
+
+const manrope = Manrope({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-manrope",
+  weight: ["600", "700", "800"],
+});
+
+const nunito = Nunito({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-nunito",
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -18,13 +37,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru" className="h-full antialiased">
-      <body
-        className="min-h-full bg-[#fffdf7] text-slate-900"
-        style={{
-          fontFamily:
-            "Inter, Nunito, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
-        }}
-      >
+      <body className={`${inter.variable} ${manrope.variable} ${nunito.variable} min-h-full bg-[#fffdf7] text-slate-900`}>
         <Header />
         <main>{children}</main>
         <Footer />
