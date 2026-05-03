@@ -17,15 +17,31 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8">
-      <HeroSection />
-      <DirectionsSection />
-      <BenefitsSection />
-      <LessonFormatSection />
-      <ResultsSection />
-      <ScheduleSection />
-      <PlansSection />
-      <FaqSection />
+    <div className="mx-auto flex max-w-6xl flex-col divide-y divide-slate-200/70 px-4 py-8">
+      <div className="pb-10">
+        <HeroSection />
+      </div>
+      <div className="py-10">
+        <DirectionsSection />
+      </div>
+      <div className="py-10">
+        <BenefitsSection />
+      </div>
+      <div className="py-10">
+        <LessonFormatSection />
+      </div>
+      <div className="py-10">
+        <ResultsSection />
+      </div>
+      <div className="py-10">
+        <ScheduleSection />
+      </div>
+      <div className="py-10">
+        <PlansSection />
+      </div>
+      <div className="pt-10">
+        <FaqSection />
+      </div>
     </div>
   );
 }
