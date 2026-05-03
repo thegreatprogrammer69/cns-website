@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8">
+    <div className="mx-auto flex max-w-6xl flex-col divide-y divide-slate-200/70 px-0 py-0 sm:px-4 sm:py-8">
       <HeroSection />
       <DirectionsSection />
       <BenefitsSection />

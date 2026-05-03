@@ -101,7 +101,7 @@ const floatingCards = [
 export function HeroSection() {
     return (
         <AnimatedSection>
-            <section className="kids-card relative overflow-hidden bg-white">
+            <section className="relative overflow-hidden bg-transparent lg:rounded-3xl lg:bg-white/75">
                 {/* Desktop background image */}
                 <div className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[55%] overflow-hidden rounded-r-[inherit] lg:block">
                     <Image
@@ -140,7 +140,7 @@ export function HeroSection() {
 function HeroContent() {
     return (
         <div
-            className={`relative z-20 flex ${mobileHeroHeightClass} flex-col justify-start overflow-hidden px-4 pb-6 pt-[30px] sm:px-6 sm:pb-7 md:px-10 lg:min-h-0 lg:justify-center lg:overflow-visible lg:px-10 lg:py-8`}
+            className={`relative z-20 flex ${mobileHeroHeightClass} flex-col justify-start overflow-hidden px-0 pb-6 pt-0 sm:px-6 sm:pb-7 sm:pt-[30px] md:px-10 lg:min-h-0 lg:justify-center lg:overflow-visible lg:px-10 lg:py-8`}
         >
             {/* Mobile background image only at the top */}
             <div className="absolute left-0 right-0 top-0 -z-20 h-[150px] overflow-hidden lg:hidden">
@@ -160,23 +160,25 @@ function HeroContent() {
                 aria-hidden="true"
             />
 
-            <p className="w-fit rounded-full bg-sky-100/95 px-3.5 py-1.5 text-xs font-semibold text-sky-600 shadow-sm lg:bg-sky-100 lg:shadow-none">
-                Детям интересно, родителям спокойно
-            </p>
+            <div className="px-3 sm:px-0">
+                <p className="mt-2 w-fit rounded-full bg-sky-100/95 px-3.5 py-1.5 text-xs font-semibold text-sky-600 shadow-sm lg:mt-0 lg:bg-sky-100 lg:shadow-none">
+                    Детям интересно, родителям спокойно
+                </p>
 
-            <h1 className="mt-4 max-w-[560px] text-[26px] font-extrabold leading-[1.15] tracking-[-0.025em] text-slate-900 sm:text-[30px] md:text-[34px] lg:text-[40px]">
-                Занятия для детей 4–12 лет: английский, театр, робототехника и
-                подготовка к школе <span className="text-amber-400">♡</span>
-            </h1>
+                <h1 className="mt-4 max-w-[560px] text-[26px] font-extrabold leading-[1.15] tracking-[-0.025em] text-slate-900 sm:text-[30px] md:text-[34px] lg:text-[40px]">
+                    Занятия для детей 4–12 лет: английский, театр, робототехника и
+                    подготовка к школе <span className="text-amber-400">♡</span>
+                </h1>
 
-            <p className="mt-4 max-w-[500px] text-sm font-medium leading-6 text-slate-500 md:text-[15px]">
-                Учимся через игру, практику и проекты. Небольшие группы,
-                спокойная атмосфера и понятная обратная связь для родителей
-                каждый месяц.
-            </p>
+                <p className="mt-4 max-w-[500px] text-sm font-medium leading-6 text-slate-500 md:text-[15px]">
+                    Учимся через игру, практику и проекты. Небольшие группы,
+                    спокойная атмосфера и понятная обратная связь для родителей
+                    каждый месяц.
+                </p>
 
-            <HeroStats />
-            <HeroActions />
+                <HeroStats />
+                <HeroActions />
+            </div>
         </div>
     );
 }
