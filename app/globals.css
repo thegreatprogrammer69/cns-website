@@ -23,12 +23,12 @@
   --foreground: #1f2937;
   --border: #e5e7eb;
   --ring: #60a5fa;
-  --radius: 1rem;
+  --radius: 0rem;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-0 outline-ring/50 shadow-none rounded-none;
   }
 
   html {
@@ -58,7 +58,7 @@
 
 @layer utilities {
   .kids-card {
-    @apply rounded-3xl border border-slate-200/80 bg-white/90 shadow-sm backdrop-blur;
+    @apply rounded-none border-0 bg-transparent shadow-none backdrop-blur-0;
   }
 
   .kids-gradient-text {
