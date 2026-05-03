@@ -101,7 +101,7 @@ const floatingCards = [
 export function HeroSection() {
     return (
         <AnimatedSection>
-            <section className="relative overflow-hidden lg:rounded-3xl lg:bg-white/75">
+            <section className="relative -mx-4 overflow-hidden sm:mx-0 lg:rounded-3xl lg:bg-white/75">
                 {/* Desktop background image */}
                 <div className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[55%] overflow-hidden rounded-r-[inherit] lg:block">
                     <Image
@@ -256,7 +256,7 @@ function HeroImage() {
 
 function Highlights() {
     return (
-        <div className="relative z-30 mx-4 mb-4 mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white/92 shadow-sm backdrop-blur-md sm:mx-6 md:mx-10 md:mb-6 md:mt-0 lg:bg-white/90">
+        <div className="relative z-30 mb-4 mt-4 overflow-hidden border-y border-slate-200 bg-white/92 shadow-sm backdrop-blur-md sm:mx-6 sm:rounded-2xl sm:border md:mt-0 md:mx-10 md:mb-6 lg:bg-white/90">
             <div className="grid grid-cols-2 md:grid-cols-4">
                 {highlights.map(({ icon: Icon, text, className }, index) => {
                     const isLeftColumn = index % 2 === 0;
