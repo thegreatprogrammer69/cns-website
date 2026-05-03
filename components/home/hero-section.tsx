@@ -160,23 +160,25 @@ function HeroContent() {
                 aria-hidden="true"
             />
 
-            <p className="w-fit rounded-full bg-sky-100/95 px-3.5 py-1.5 text-xs font-semibold text-sky-600 shadow-sm lg:bg-sky-100 lg:shadow-none">
-                Детям интересно, родителям спокойно
-            </p>
+            <div className="px-3 sm:px-0">
+                <p className="w-fit rounded-full bg-sky-100/95 px-3.5 py-1.5 text-xs font-semibold text-sky-600 shadow-sm lg:bg-sky-100 lg:shadow-none">
+                    Детям интересно, родителям спокойно
+                </p>
 
-            <h1 className="mt-4 max-w-[560px] text-[26px] font-extrabold leading-[1.15] tracking-[-0.025em] text-slate-900 sm:text-[30px] md:text-[34px] lg:text-[40px]">
-                Занятия для детей 4–12 лет: английский, театр, робототехника и
-                подготовка к школе <span className="text-amber-400">♡</span>
-            </h1>
+                <h1 className="mt-4 max-w-[560px] text-[26px] font-extrabold leading-[1.15] tracking-[-0.025em] text-slate-900 sm:text-[30px] md:text-[34px] lg:text-[40px]">
+                    Занятия для детей 4–12 лет: английский, театр, робототехника и
+                    подготовка к школе <span className="text-amber-400">♡</span>
+                </h1>
 
-            <p className="mt-4 max-w-[500px] text-sm font-medium leading-6 text-slate-500 md:text-[15px]">
-                Учимся через игру, практику и проекты. Небольшие группы,
-                спокойная атмосфера и понятная обратная связь для родителей
-                каждый месяц.
-            </p>
+                <p className="mt-4 max-w-[500px] text-sm font-medium leading-6 text-slate-500 md:text-[15px]">
+                    Учимся через игру, практику и проекты. Небольшие группы,
+                    спокойная атмосфера и понятная обратная связь для родителей
+                    каждый месяц.
+                </p>
 
-            <HeroStats />
-            <HeroActions />
+                <HeroStats />
+                <HeroActions />
+            </div>
         </div>
     );
 }
