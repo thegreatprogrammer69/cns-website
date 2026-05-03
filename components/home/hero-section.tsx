@@ -101,7 +101,7 @@ const floatingCards = [
 export function HeroSection() {
     return (
         <AnimatedSection>
-            <section className="kids-card relative overflow-hidden bg-white">
+            <section className="relative overflow-hidden bg-white/75 lg:rounded-3xl">
                 {/* Desktop background image */}
                 <div className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[55%] overflow-hidden rounded-r-[inherit] lg:block">
                     <Image
