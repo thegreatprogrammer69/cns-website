@@ -101,7 +101,7 @@ const floatingCards = [
 export function HeroSection() {
     return (
         <AnimatedSection>
-            <section className="relative overflow-hidden bg-white/75 lg:rounded-3xl">
+            <section className="relative overflow-hidden lg:rounded-3xl lg:bg-white/75">
                 {/* Desktop background image */}
                 <div className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[55%] overflow-hidden rounded-r-[inherit] lg:block">
                     <Image
@@ -143,20 +143,20 @@ function HeroContent() {
             className={`relative z-20 flex ${mobileHeroHeightClass} flex-col justify-start overflow-hidden px-4 pb-6 pt-[30px] sm:px-6 sm:pb-7 md:px-10 lg:min-h-0 lg:justify-center lg:overflow-visible lg:px-10 lg:py-8`}
         >
             {/* Mobile background image only at the top */}
-            <div className="absolute left-0 right-0 top-0 -z-20 h-[150px] overflow-hidden lg:hidden">
+            <div className="absolute inset-0 -z-20 overflow-hidden lg:hidden">
                 <Image
                     src="/kids-hero.png"
                     alt="Дети собирают робота с преподавателем"
                     fill
                     sizes="100vw"
-                    className="object-cover object-top"
+                    className="object-cover object-center"
                     priority
                 />
             </div>
 
             {/* Mobile fade overlay only over the image */}
             <div
-                className="absolute left-0 right-0 top-0 -z-10 h-[150px] bg-gradient-to-b from-transparent via-white/45 to-white lg:hidden"
+                className="absolute inset-0 -z-10 bg-gradient-to-b from-slate-900/45 via-slate-900/20 to-slate-900/45 lg:hidden"
                 aria-hidden="true"
             />
 
